@@ -1,0 +1,57 @@
+// raft.proto
+syntax = "proto3";
+
+service RaftNode {
+    rpc RequestVote(VoteRequest) returns (VoteResponse);
+    rpc AppendEntries(EntryRequest) returns (EntryResponse);
+    rpc ControlConnection(ConnectionRequest) returns (ConnectionResponse);
+    rpc GetValue(GetRequest) returns (GetResponse);
+}
+
+message VoteRequest {
+    uint64 term = 1;
+    string candidate_id = 2;
+    uint64 last_log_index = 3;
+    uint64 last_log_term = 4;
+}
+
+message VoteResponse {
+    uint64 term = 1;
+    bool vote_granted = 2;
+}
+
+message EntryRequest {
+    uint64 term = 1;
+    string leader_id = 2;
+    uint64 prev_log_index = 3;
+    uint64 prev_log_term = 4;
+    repeated LogEntry entries = 5;
+    uint64 leader_commit = 6;
+}
+
+message EntryResponse {
+    uint64 term = 1;
+    bool success = 2;
+}
+
+message LogEntry {
+    uint64 term = 1;
+    string command = 2;
+}
+
+message ConnectionRequest {
+    string peer = 1;
+    bool disconnect = 2;
+}
+
+message ConnectionResponse {
+    bool success = 1;
+}
+
+message GetRequest {
+    string key = 1;
+}
+
+message GetResponse {
+    string value = 1;
+}

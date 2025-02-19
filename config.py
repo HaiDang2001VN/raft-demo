@@ -1,0 +1,14 @@
+# config.py
+PEER_PORTS = {
+    'node1': 50051,
+    'node2': 50052,
+    'node3': 50053,
+    'node4': 50054,
+    'node5': 50055
+}
+
+HB_PERIOD = 1
+MAX_RETRIES = 3
+DIS_TIMEOUT = (MAX_RETRIES + 1) * HB_PERIOD
+COMMIT_FREQ = 10
+COMMIT_PERIOD = HB_PERIOD / COMMIT_FREQ
