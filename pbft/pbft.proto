@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+service PBFTService {
+    rpc PrePrepare (Message) returns (Response);
+    rpc Prepare (Message) returns (Response);
+    rpc Commit (Message) returns (Response);
+}
+
+message Message {
+    string sender = 1;
+    string block_hash = 2;
+}
+
+message Response {
+    bool success = 1;
+}
