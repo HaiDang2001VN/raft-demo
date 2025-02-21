@@ -71,10 +71,11 @@ class RaftCLI(cmd.Cmd):
             
             # Filter for successful leader response
             success = False
-            for response in responses:
+            for peer, response in zip(PEER_PORTS.keys(), responses):
                 if response and response.success:
                     success = True
-                    break
+                    print(f"Leader {peer} accepted the request")
+                    # break
             
             if not success:
                 raise Exception("No leader found or request failed")
@@ -102,10 +103,10 @@ class RaftCLI(cmd.Cmd):
             responses = await asyncio.gather(*tasks)
             
             # Check for successful responses
-            for response in responses:
+            for peer, response in zip(PEER_PORTS.keys(), responses):
                 if response and response.value:
-                    print(f"{key} = {response.value}")
-                    return
+                    print(f"From leader {peer}: {key} = {response.value}")
+                    # return
             else:
                 print(f"Key '{key}' not found")
         except Exception as e:
