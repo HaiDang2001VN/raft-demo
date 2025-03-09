@@ -15,7 +15,6 @@ with grpc.insecure_channel(primary_host) as channel:
     response = stub.PrePrepare(pbft_pb2.Message(sender="0", block_hash=block_hash))
     print(f"sent PrePrepare with hash {block_hash} from Primary")
 
-# Gửi yêu cầu Commit
 with grpc.insecure_channel(primary_host) as channel:
     stub = pbft_pb2_grpc.PBFTServiceStub(channel)
     response = stub.Commit(pbft_pb2.Message(sender="0", block_hash=block_hash))
@@ -29,7 +28,6 @@ with grpc.insecure_channel(primary_host) as channel:
     response = stub.PrePrepare(pbft_pb2.Message(sender="0", block_hash=block_hash))
     print(f"sent PrePrepare with hash {block_hash} from Primary")
 
-# Gửi yêu cầu Commit
 with grpc.insecure_channel(primary_host) as channel:
     stub = pbft_pb2_grpc.PBFTServiceStub(channel)
     response = stub.Commit(pbft_pb2.Message(sender="0", block_hash=block_hash))
